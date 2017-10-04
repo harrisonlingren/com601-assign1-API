@@ -14,8 +14,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // let bookingModel = require('models.js')(mongoose);
 let appRoutes = require('./routes.js');
-app.use('/api', appRoutes);
 
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+app.use('/api', appRoutes);
 
 let port = process.env.PORT || 8080
 let server = app.listen(port, function() {
