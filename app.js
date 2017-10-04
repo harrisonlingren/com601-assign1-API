@@ -16,6 +16,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 let appRoutes = require('./routes.js');
 app.use('/api', appRoutes);
 
-let server = app.listen(process.env.APP_PORT, function() {
+
+let port = process.env.PORT || 8080
+let server = app.listen(port, function() {
     console.log('Listening on port %s...', server.address().port);
 });
