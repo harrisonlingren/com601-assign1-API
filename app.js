@@ -4,14 +4,6 @@ require('dotenv').config()
 
 let app = express();
 
-// connect to db here, handle successful and failed conns
-// let mongoose = require('mongoose');
-// let db_string = (process.env.DB_USER + ':' + process.env.DB_PASS + '@' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_TABLE);
-// mongoose.connect(db_string);
-// let db = mongoose.connection
-
-// let bookingModel = require('models.js')(mongoose);
-
 let allowCrossDomain = function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
