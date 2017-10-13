@@ -70,7 +70,7 @@ router.put('/booking/:id', (req, res) => {
         db.collection('bookings').findOne({ book_id: recvObj.book_id }, function(err, obj) {
             assert.equal(null, err);
 
-            if (!result) {
+            if (!obj) {
                 let resData = {
                     'message': 'Error: booking ' + id + ' not found',
                     'data': null
