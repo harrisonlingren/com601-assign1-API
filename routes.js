@@ -72,7 +72,7 @@ router.put('/booking/:id', (req, res) => {
 
             if (!obj) {
                 let resData = {
-                    'message': 'Error: booking ' + obj.book_id + ' not found',
+                    'message': 'Error: booking ' + recvObj.book_id + ' not found',
                     'data': obj
                 }; res.status(404).json(resData);
 
