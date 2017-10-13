@@ -92,7 +92,7 @@ router.put('/booking/:id', (req, res) => {
 
                     let resData = {
                         'message': 'Record updated!',
-                        'data': result
+                        'data': r
                     }; res.status(201).json(resData);
                 });
             }
