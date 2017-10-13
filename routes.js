@@ -55,7 +55,7 @@ router.get('/booking/:id', (req, res) => {
 router.put('/booking/:id', (req, res) => {
     console.log('update req', req.body);
     let recvObj = {
-        'book_id': req.params.id,
+        'book_id': parseInt(req.params.id),
         'first': req.body.first,
         'last': req.body.last,
         'email': req.body.email
@@ -77,11 +77,16 @@ router.put('/booking/:id', (req, res) => {
                 }; res.status(404).json(resData);
 
             } else {
-                obj.first = recvObj.first;
-                obj.last = recvObj.last;
-                obj.email = recvObj.email;
+                assert.equal(recvObj.book_id, obj.book_id);
+                let updateObj = {
+                    '_id': obj._id,
+                    'book_id': recvObj.book_id,
+                    'first': recvObj.first,
+                    'last': recvObj.last,
+                    'email': recvObj.last
+                }
                             
-                db.collection('bookings').update({_id:obj._id}, obj, {safe:true}, function(err, r) {
+                db.collection('bookings').update({_id:updateObj._id}, updateObj, {safe:true}, function(err, r) {
                     assert.equal(null, err);
                     console.log('updated object: ' + recvObj.book_id);
 
