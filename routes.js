@@ -83,7 +83,7 @@ router.put('/booking/:id', (req, res) => {
                     'book_id': recvObj.book_id,
                     'first': recvObj.first,
                     'last': recvObj.last,
-                    'email': recvObj.last
+                    'email': recvObj.email
                 }
                             
                 db.collection('bookings').update({_id:updateObj._id}, updateObj, {safe:true}, function(err, r) {
