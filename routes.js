@@ -79,14 +79,13 @@ router.put('/booking/:id', (req, res) => {
             } else {
                 assert.equal(recvObj.book_id, obj.book_id);
                 let updateObj = {
-                    '_id': obj._id,
                     'book_id': recvObj.book_id,
                     'first': recvObj.first,
                     'last': recvObj.last,
                     'email': recvObj.email
                 }
                             
-                db.collection('bookings').update({_id:updateObj._id}, updateObj, {safe:true}, function(err, r) {
+                db.collection('bookings').update({_id:obj._id}, updateObj, {safe:true}, function(err, r) {
                     assert.equal(null, err);
                     console.log('updated object: ' + recvObj.book_id);
 
