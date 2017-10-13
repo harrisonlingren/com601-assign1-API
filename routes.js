@@ -51,6 +51,50 @@ router.get('/booking/:id', (req, res) => {
     });
 });
 
+// UPDATE method
+router.put('/booking/:id', (req, res) => {
+    console.log('update req', req.body);
+    let recvObj = {
+        'book_id': req.params.id,
+        'first': req.body.first,
+        'last': req.body.last,
+        'email': req.body.email
+    };
+
+    // updates a booking record and returns the updated data
+    // connect to db
+    MongoClient.connect(db_conn_str, (err, db) => {
+        assert.equal(null, err);
+        console.log('Connected to db successfully');
+
+        db.collection('bookings').findOne({ book_id: recvObj.book_id }, function(err, obj) {
+            assert.equal(null, err);
+
+            if (!result) {
+                let resData = {
+                    'message': 'Error: booking ' + id + ' not found',
+                    'data': null
+                }; res.status(404).json(resData);
+
+            } else {
+                obj.first = recvObj.first;
+                obj.last = recvObj.last;
+                obj.email = recvObj.email;
+                            
+                db.collection('bookings').update({_id:obj._id}, obj, {safe:true}, function(err, r) {
+                    assert.equal(null, err);
+                    console.log('updated object: ' + recvObj.book_id);
+
+                    let resData = {
+                        'message': 'Record updated!',
+                        'data': result
+                    }; res.status(201).json(resData);
+                });
+            }
+        });
+    });
+});
+
 // CREATE method
 router.post('/create', (req, res) => {
     console.log('create req', req.body);
