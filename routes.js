@@ -72,8 +72,8 @@ router.put('/booking/:id', (req, res) => {
 
             if (!obj) {
                 let resData = {
-                    'message': 'Error: booking ' + id + ' not found',
-                    'data': null
+                    'message': 'Error: booking ' + obj.book_id + ' not found',
+                    'data': obj
                 }; res.status(404).json(resData);
 
             } else {
