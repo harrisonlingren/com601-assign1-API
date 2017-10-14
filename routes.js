@@ -85,12 +85,51 @@ router.put('/booking/:id', (req, res) => {
                     'email': recvObj.email
                 }
                             
-                db.collection('bookings').update({_id:obj._id}, updateObj, {safe:true}, function(err, r) {
+                db.collection('bookings').updateOne({_id:obj._id}, updateObj, function(err, r) {
                     assert.equal(null, err);
                     console.log('updated object: ' + recvObj.book_id);
 
                     let resData = {
                         'message': 'Record updated!',
+                        'data': updateObj
+                    }; res.status(201).json(resData);
+                });
+            }
+        });
+    });
+});
+
+// DELETE method
+router.delete('/booking/:id', (req, res) => {
+    console.log('update req', req.body);
+    let recvObj = {
+        'book_id': parseInt(req.params.id)
+    };
+
+    // deletes a booking record and returns success/fail message
+    // connect to db
+    MongoClient.connect(db_conn_str, (err, db) => {
+        assert.equal(null, err);
+        console.log('Connected to db successfully');
+
+        db.collection('bookings').findOne({ book_id: recvObj.book_id }, function(err, obj) {
+            assert.equal(null, err);
+
+            if (!obj) {
+                let resData = {
+                    'message': 'Error: booking ' + recvObj.book_id + ' not found',
+                    'data': obj
+                }; res.status(404).json(resData);
+
+            } else {
+                assert.equal(recvObj.book_id, obj.book_id);
+                            
+                db.collection('bookings').deleteOne({_id:obj._id}, function(err, r) {
+                    assert.equal(null, err);
+                    console.log('updated object: ' + recvObj.book_id);
+
+                    let resData = {
+                        'message': 'Record deleted!',
                         'data': updateObj
                     }; res.status(201).json(resData);
                 });
