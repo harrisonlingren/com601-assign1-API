@@ -129,7 +129,7 @@ router.delete('/booking/:id', (req, res) => {
                     console.log('updated object: ' + recvObj.book_id);
 
                     let resData = {
-                        'message': 'Record deleted!'
+                        'message': 'Record ' + obj.book_id + ' deleted!'
                     }; res.status(201).json(resData);
                 });
             }
