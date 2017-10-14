@@ -19,6 +19,6 @@ app.use('/api', appRoutes);
 
 let port = process.env.PORT || 8080
 let server = app.listen(port, function() {
-    console.log('Listening on port %s...', server.address().port);
+    console.info('Listening on port %s...', server.address().port);
 });
 

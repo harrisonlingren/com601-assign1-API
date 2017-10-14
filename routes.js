@@ -12,7 +12,7 @@ if (!db_conn_str) {
 // default
 router.get('/', (req, res) => {
     // welcome message and 204 status
-    console.log('got connection!')
+    //console.log('got connection!')
     res.status(200).send('Welcome to the assignment 1 API!');
 });
 
@@ -20,12 +20,12 @@ router.get('/', (req, res) => {
 router.get('/booking/:id', (req, res) => {
     // search ID from req params
     id = parseInt(req.params.id);
-    console.log('searchId: ', id);
+    //console.log('searchId: ', id);
 
     // connect to db
     MongoClient.connect(db_conn_str, (err, db) => {
         assert.equal(null, err);
-        console.log('searching for id: %s', id);
+        //console.log('searching for id: %s', id);
 
         db.collection('bookings').findOne({ book_id: id }, (err, result) => {
             assert.equal(null, err);
@@ -37,7 +37,7 @@ router.get('/booking/:id', (req, res) => {
                 }; res.status(404).json(resData);
 
             } else {
-                console.log('result found: ', result);
+                //console.log('result found: ', result);
                 assert.equal(id, result.book_id);
                 
                 let resData = {
@@ -53,7 +53,7 @@ router.get('/booking/:id', (req, res) => {
 
 // UPDATE method
 router.put('/booking/:id', (req, res) => {
-    console.log('update req', req.body);
+    //console.log('update req', req.body);
     let recvObj = {
         'book_id': parseInt(req.params.id),
         'first': req.body.first,
@@ -65,7 +65,7 @@ router.put('/booking/:id', (req, res) => {
     // connect to db
     MongoClient.connect(db_conn_str, (err, db) => {
         assert.equal(null, err);
-        console.log('Connected to db successfully');
+        //console.log('Connected to db successfully');
 
         db.collection('bookings').findOne({ book_id: recvObj.book_id }, function(err, obj) {
             assert.equal(null, err);
@@ -87,7 +87,7 @@ router.put('/booking/:id', (req, res) => {
                             
                 db.collection('bookings').updateOne({_id:obj._id}, updateObj, function(err, r) {
                     assert.equal(null, err);
-                    console.log('updated object: ' + recvObj.book_id);
+                    //console.log('updated object: ' + recvObj.book_id);
 
                     let resData = {
                         'message': 'Record updated!',
@@ -101,7 +101,7 @@ router.put('/booking/:id', (req, res) => {
 
 // DELETE method
 router.delete('/booking/:id', (req, res) => {
-    console.log('update req', req.body);
+    //console.log('update req', req.body);
     let recvObj = {
         'book_id': parseInt(req.params.id)
     };
@@ -110,7 +110,7 @@ router.delete('/booking/:id', (req, res) => {
     // connect to db
     MongoClient.connect(db_conn_str, (err, db) => {
         assert.equal(null, err);
-        console.log('Connected to db successfully');
+        //console.log('Connected to db successfully');
 
         db.collection('bookings').findOne({ book_id: recvObj.book_id }, function(err, obj) {
             assert.equal(null, err);
@@ -126,7 +126,7 @@ router.delete('/booking/:id', (req, res) => {
                             
                 db.collection('bookings').deleteOne({_id:obj._id}, function(err, r) {
                     assert.equal(null, err);
-                    console.log('updated object: ' + recvObj.book_id);
+                    //console.log('updated object: ' + recvObj.book_id);
 
                     let resData = {
                         'message': 'Record ' + obj.book_id + ' deleted!'
@@ -139,7 +139,7 @@ router.delete('/booking/:id', (req, res) => {
 
 // CREATE method
 router.post('/create', (req, res) => {
-    console.log('create req', req.body);
+    //console.log('create req', req.body);
     let recvObj = {
         'book_id': 0,
         'first': req.body.first,
@@ -150,13 +150,13 @@ router.post('/create', (req, res) => {
     // connect to db
     MongoClient.connect(db_conn_str, (err, db) => {
         assert.equal(null, err);
-        console.log('Connected to db successfully');
+        //console.log('Connected to db successfully');
 
         // increment book_id
         let newId = 0;
         db.collection('bookings').count((err, count) => {
             assert.equal(null, err);
-            console.log("count: ", count);
+            //console.log("count: ", count);
             newId = count;
             recvObj.book_id = newId;
 
