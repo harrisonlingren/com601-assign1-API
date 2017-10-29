@@ -151,9 +151,9 @@ router.post('/create', (req, res) => {
         'first': req.body.first,
         'last': req.body.last,
         'email': req.body.email,
-        'adults', req.body.adults,
-        'children', req.body.children,
-        'destination', req.body.destination
+        'adults': req.body.adults,
+        'children': req.body.children,
+        'destination': req.body.destination
     };
     // creates a new booking and returns the object data
     // connect to db
