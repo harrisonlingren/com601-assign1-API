@@ -58,7 +58,10 @@ router.put('/booking/:id', (req, res) => {
         'book_id': parseInt(req.params.id),
         'first': req.body.first,
         'last': req.body.last,
-        'email': req.body.email
+        'email': req.body.email,
+        'adults': req.body.adults,
+        'children': req.body.children,
+        'destination': req.body.destination
     };
 
     // updates a booking record and returns the updated data
@@ -82,7 +85,10 @@ router.put('/booking/:id', (req, res) => {
                     'book_id': recvObj.book_id,
                     'first': recvObj.first,
                     'last': recvObj.last,
-                    'email': recvObj.email
+                    'email': recvObj.email,
+                    'adults': recvObj.adults,
+                    'children': recvObj.children,
+                    'destination': recvObj.destination
                 }
                             
                 db.collection('bookings').updateOne({_id:obj._id}, updateObj, function(err, r) {
@@ -144,7 +150,10 @@ router.post('/create', (req, res) => {
         'book_id': 0,
         'first': req.body.first,
         'last': req.body.last,
-        'email': req.body.email
+        'email': req.body.email,
+        'adults', req.body.adults,
+        'children', req.body.children,
+        'destination', req.body.destination
     };
     // creates a new booking and returns the object data
     // connect to db
